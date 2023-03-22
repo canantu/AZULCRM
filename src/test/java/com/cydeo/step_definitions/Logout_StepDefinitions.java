@@ -34,6 +34,10 @@ public class Logout_StepDefinitions {
         Driver.getDriver().get("https://qa.azulcrm.com");
     }
 
+    @When("user clicks logout option from profile menu")
+    public void user_clicks_logout_option_from_profile_menu() {
+        homePage.logout();
+    }
 
 
 

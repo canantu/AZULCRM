@@ -1,5 +1,6 @@
 package com.cydeo.pages;
 
+import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +17,16 @@ public class HomePage {
 
     @FindBy(xpath = "//span[text()='Log out']")
     public WebElement logoutOption;
+
+
+    public void logout(){
+        clickProfileMenu();
+        BrowserUtils.clickWithWait(logoutOption,2);
+    }
+
+    public void clickProfileMenu(){
+        BrowserUtils.clickWithWait(usernameOnProfile, 2);
+    }
 
 
 }

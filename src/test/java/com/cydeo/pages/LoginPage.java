@@ -1,5 +1,7 @@
 package com.cydeo.pages;
 
+import com.cydeo.utilities.BrowserUtils;
+import com.cydeo.utilities.ConfigurationReader;
 import com.cydeo.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,6 +37,58 @@ public class LoginPage {
 
     @FindBy(xpath = "//div[text()='Get Password']")
     public WebElement getPasswordHeader;
+
+
+
+    public void navigateLoginPage(){
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+    }
+
+    public void loginAsUser(String user){
+        String username = "";
+        switch (user){
+            case "hr":
+               username = ConfigurationReader.getProperty("hr.username");
+               break;
+            case "marketing":
+                username = ConfigurationReader.getProperty("marketing.username");
+                break;
+            case "helpdesk":
+                username = ConfigurationReader.getProperty("helpdesk.username");
+                break;
+            default:
+                System.out.println("invalid username");
+        }
+        String password = ConfigurationReader.getProperty("password");
+        usernameInputBox.sendKeys(username);
+        passwordInputBox.sendKeys(password);
+        loginButton.click();
+    }
+
+    public void login(String username, String password){
+        usernameInputBox.sendKeys(username);
+        passwordInputBox.sendKeys(password);
+        loginButton.click();
+    }
+
+    public String isBulletSign(){
+        return passwordInputBox.getAttribute("type");
+    }
+
+    public void enterTextToPasswordField(String text){
+        BrowserUtils.sendKeysWithWait(passwordInputBox, text, 3);
+    }
+
+    public void enterTextToUsernameField(String text){
+        BrowserUtils.sendKeysWithWait(usernameInputBox, text, 3);
+    }
+
+
+
+
+
+
+
 
 
 

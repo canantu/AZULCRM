@@ -1,11 +1,9 @@
-
 Feature: Logout functionality
 
   Background:
     Given user is on login page
     And user logs in as "hr"
 
-  @smoke
   Scenario: Logout from profile menu
     When user clicks logout option from profile menu
     Then user lands on login page

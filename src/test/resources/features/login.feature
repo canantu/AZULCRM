@@ -4,7 +4,7 @@ Feature: Login functionality
   Background:
     Given user is on login page
 
-  @AZUL10-375
+  @AZUL10-375 @smoke
   Scenario Template: Login with valid credentials
     When user logs in as "<user>"
     Then user lands on homepage

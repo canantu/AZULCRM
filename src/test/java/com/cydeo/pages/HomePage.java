@@ -21,11 +21,13 @@ public class HomePage {
 
     public void logout(){
         clickProfileMenu();
-        BrowserUtils.clickWithWait(logoutOption,2);
+        //BrowserUtils.clickWithWait(logoutOption,2);
+        logoutOption.click();
     }
 
     public void clickProfileMenu(){
-        BrowserUtils.clickWithWait(usernameOnProfile, 2);
+        //BrowserUtils.clickWithWait(usernameOnProfile, 2);
+        usernameOnProfile.click();
     }
 
 

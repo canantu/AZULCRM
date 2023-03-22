@@ -2,41 +2,58 @@ package com.cydeo.step_definitions;
 
 import com.cydeo.pages.HomePage;
 import com.cydeo.pages.LoginPage;
+import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;
 import io.cucumber.java.en.When;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class Logout_StepDefinitions {
 
-    LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
-    @When("user clicks username on profile menu")
-    public void user_clicks_username_on_profile_menu() {
-        homePage.usernameOnProfile.click();
-    }
 
-    @When("user clicks log-out option")
-    public void user_clicks_log_out_option() {
-        homePage.logoutOption.click();
-    }
 
-    @When("user clicks previous button")
-    public void user_clicks_previous_button() {
+    @When("user clicks previous button in browser")
+    public void user_clicks_previous_button_in_browser() {
         Driver.getDriver().navigate().back();
     }
 
-    @When("user closes tab")
-    public void user_closes_tab() {
-        Driver.getDriver().close();
-    }
+    @When("user closes all open tabs")
+    public void user_closes_all_open_tabs() {
+        // open one empty tab
+        BrowserUtils.openNewTab();
 
-    @When("user opens a new tab and navigate to login page")
-    public void user_opens_a_new_tab_and_navigate_to_login_page() {
-        Driver.getDriver().get("https://qa.azulcrm.com");
+        Set<String> windowHandles = Driver.getDriver().getWindowHandles();
+        List<String> allOpenTabs = new ArrayList<>(windowHandles);
+
+        // only one empty browser will be open to not get NoSuchSessionException
+        for (int i = 0; i < allOpenTabs.size()-1; i++) {
+            Driver.getDriver().switchTo().window(allOpenTabs.get(i));
+            Driver.getDriver().close();
+        }
+
+        BrowserUtils.switchToWindow(0);
+
     }
 
     @When("user clicks logout option from profile menu")
     public void user_clicks_logout_option_from_profile_menu() {
         homePage.logout();
+    }
+
+
+    @When("user navigates to {string} page")
+    public void user_navigates_to_page(String page) {
+        switch (page){
+            case "login":
+                Driver.getDriver().get("https://qa.azulcrm.com");
+                break;
+            case "homepage":
+                Driver.getDriver().get("https://qa.azulcrm.com/stream/");
+                break;
+        }
     }
 
 

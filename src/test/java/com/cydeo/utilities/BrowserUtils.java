@@ -1,8 +1,13 @@
 package com.cydeo.utilities;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class BrowserUtils {
 
@@ -76,6 +81,20 @@ public class BrowserUtils {
         }
     }
 
+    // opens a new tab using JSExecutor
+    public static void openNewTab(){
+        ((JavascriptExecutor)Driver.getDriver()).executeScript("window.open();");
+    }
+
+    public static void switchToWindow(int index){
+        try{
+            Set<String> windowHandles = Driver.getDriver().getWindowHandles();
+            List<String> allTabs = new ArrayList<>(windowHandles);
+            Driver.getDriver().switchTo().window(allTabs.get(index));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

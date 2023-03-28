@@ -64,7 +64,7 @@ Feature: Login functionality
 
   @AZUL10-384
   Scenario: Verify enter key for submitting login page
-    When user enters "hr1@cybertekschool.com" to username field
+    When user enters "hr12@cybertekschool.com" to username field
     And user enters "UserUser" to password field
     And user presses enter key from keyboard
     Then user lands on homepage

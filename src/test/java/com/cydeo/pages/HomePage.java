@@ -18,6 +18,26 @@ public class HomePage {
     @FindBy(xpath = "//span[text()='Log out']")
     public WebElement logoutOption;
 
+    @FindBy(id="feed-add-post-form-tab-tasks")
+    public WebElement task;
+
+    @FindBy(id="task-edit-title")
+    public WebElement thingsToDoBox;
+
+    @FindBy(xpath = "//label[@for='tasks-task-priority-cb']")
+    public WebElement highPriorityLabel;
+
+    @FindBy(id = "tasks-task-priority-cb")
+    public WebElement highPriorityCheckbox;
+
+    @FindBy(xpath = "//span[@data-bx-id='dateplanmanager-deadline']/input[1]")
+    public WebElement datePicker;
+
+    
+
+
+
+
 
     public void logout(){
         clickProfileMenu();

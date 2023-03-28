@@ -1,6 +1,7 @@
 package com.cydeo.pages;
 
 import com.cydeo.utilities.BrowserUtils;
+import com.cydeo.utilities.ConfigurationReader;
 import com.cydeo.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,6 +34,9 @@ public class HomePage {
     @FindBy(xpath = "//span[@data-bx-id='dateplanmanager-deadline']/input[1]")
     public WebElement datePicker;
 
+    public void navigateToHomePage(){
+        Driver.getDriver().get(ConfigurationReader.getProperty("homePage"));
+    }
     
 
 

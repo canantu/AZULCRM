@@ -50,7 +50,6 @@ public class Login_StepDefinitions {
     @Then("user lands on login page")
     public void user_lands_on_login_page() {
         String expectedTitle = "Authorization";
-        BrowserUtils.waitForTitleContains(expectedTitle, 3);
         String actualTitle = Driver.getDriver().getTitle();
         Assert.assertEquals(expectedTitle,actualTitle );
     }

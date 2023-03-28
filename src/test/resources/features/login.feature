@@ -5,7 +5,7 @@ Feature: Login functionality
     Given user is on login page
 
   @AZUL10-375 @smoke
-  Scenario Template: Login with valid credentials
+  Scenario Outline: Login with valid credentials
     When user logs in as "<user>"
     Then user lands on homepage
     Examples:

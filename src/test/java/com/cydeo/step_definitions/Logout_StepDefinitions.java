@@ -4,6 +4,7 @@ import com.cydeo.pages.HomePage;
 import com.cydeo.pages.LoginPage;
 import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Set;
 public class Logout_StepDefinitions {
 
     HomePage homePage = new HomePage();
+    LoginPage loginPage = new LoginPage();
 
 
     @When("user clicks previous button in browser")
@@ -43,19 +45,17 @@ public class Logout_StepDefinitions {
         homePage.logout();
     }
 
+    @And("user navigates to {string} page")
+    public void userNavigatesToPage(String page) {
 
-    @When("user navigates to {string} page")
-    public void user_navigates_to_page(String page) {
         switch (page){
             case "login":
-                Driver.getDriver().get("https://qa.azulcrm.com");
+                loginPage.navigateLoginPage();
                 break;
-            case "homepage":
-                Driver.getDriver().get("https://qa.azulcrm.com/stream/");
+            case "home":
+                homePage.navigateToHomePage();
                 break;
+
         }
     }
-
-
-
 }

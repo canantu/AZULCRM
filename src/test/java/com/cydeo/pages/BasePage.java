@@ -4,7 +4,7 @@ import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;
 import org.openqa.selenium.support.PageFactory;
 
-public class BasePage {
+public abstract class BasePage {
 
     public BasePage(){
         PageFactory.initElements(Driver.getDriver(), this);

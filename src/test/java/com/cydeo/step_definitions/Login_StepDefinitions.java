@@ -105,10 +105,6 @@ public class Login_StepDefinitions {
         Assert.assertTrue(homePage.usernameOnProfile.isDisplayed());
     }
 
-    @When("user enters text to password field")
-    public void user_enters_text_to_password_field(String text) {
-        loginPage.enterTextToPasswordField(text);
-    }
 
     @When("user enters {string} to username field")
     public void user_enters_to_username_field(String text) {

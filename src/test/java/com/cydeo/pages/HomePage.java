@@ -37,11 +37,6 @@ public class HomePage extends BasePage{
     public void navigateToHomePage(){
         Driver.getDriver().get(ConfigurationReader.getProperty("homePage"));
     }
-    
-
-
-
-
 
     public void logout(){
         clickProfileMenu();

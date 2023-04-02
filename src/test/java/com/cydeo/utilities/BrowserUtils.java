@@ -40,6 +40,8 @@ public class BrowserUtils {
         }
     }
 
+
+
     // wait for a webElement until it has a specific text
     public static void waitForText(WebElement element, String text){
         try{

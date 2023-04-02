@@ -70,6 +70,13 @@ public class LoginPage extends BasePage{
         passwordInputBox.sendKeys(password);
         loginButton.click();
     }
+    public void login(){
+        Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+        usernameInputBox.sendKeys(ConfigurationReader.getProperty("hr.username"));
+        passwordInputBox.sendKeys(ConfigurationReader.getProperty("password"));
+        loginButton.click();
+    }
+
 
     public String isBulletSign(){
         return passwordInputBox.getAttribute("type");

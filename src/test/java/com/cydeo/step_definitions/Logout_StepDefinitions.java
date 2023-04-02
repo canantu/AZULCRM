@@ -24,17 +24,14 @@ public class Logout_StepDefinitions {
         homePage.logout();
     }
 
-    @And("user navigates to {string} page")
-    public void userNavigatesToPage(String page) {
+    @And("user navigates to home page")
+    public void userNavigatesToHomePage() {
 
-        switch (page){
-            case "login":
-                loginPage.navigateLoginPage();
-                break;
-            case "home":
-                homePage.navigateToHomePage();
-                break;
+        homePage.navigateToHomePage();
+    }
 
-        }
+    @When("user closes all open tabs")
+    public void userClosesAllOpenTabs() {
+        Driver.closeDriver();
     }
 }

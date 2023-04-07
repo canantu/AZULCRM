@@ -2,6 +2,7 @@ package com.cydeo.utilities;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -98,6 +99,22 @@ public class BrowserUtils {
         }
     }
 
+    public static void hoverOverFile(WebElement element){
+        Actions actions = new Actions(Driver.getDriver());
+        actions.moveToElement(element,10,0).perform();
+    }
+
+
+
+    /**
+     * Clicks on an element using JavaScript
+     *
+     * @param element
+     */
+    public static void clickWithJS(WebElement element) {
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", element);
+    }
 
 
 

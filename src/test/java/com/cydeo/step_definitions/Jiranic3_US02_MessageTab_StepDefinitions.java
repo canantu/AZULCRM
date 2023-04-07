@@ -11,6 +11,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class Jiranic3_US02_MessageTab_StepDefinitions {
 
@@ -86,10 +89,6 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
     public void user_uploads_a_file() {
         messageTabPage.uploadFilesAndImagesButton.sendKeys(ConfigurationReader.getProperty("path1"));
     }
-    @Then("user sees the file attached")
-    public void user_sees_the_file_attached() {
-        Assert.assertTrue(messageTabPage.uploadedFile1.isDisplayed());
-    }
 
     @And("user clicks Send button")
     public void userClicksSendButton() {
@@ -97,9 +96,83 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
     }
 
 
-    @Then("user displays the picture on screen")
-    public void user_displays_the_picture_on_screen() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+
+    @And("user clicks Insert in text button")
+    public void userClicksInsertInTextButton() {
+        messageTabPage.insertInTextButton.click();
     }
+
+
+    @Then("user sees the {string} on message area")
+    public void userSeesTheFileOnMessageArea(String file) {
+
+        messageTabPage.switchToMessageIframe();
+        switch (file){
+            case "document":
+                Assert.assertTrue(messageTabPage.fileTextInMessageBody.isDisplayed());
+                break;
+            case "png":
+                BrowserUtils.waitForVisibility(messageTabPage.pictureInMessageBody, 10);
+                Assert.assertTrue(messageTabPage.pictureInMessageBody.isDisplayed());
+        }
+
+
+    }
+
+    @Then("picture is displayed on activity stream")
+    public void pictureIsDisplayedOnActivityStream() throws InterruptedException {
+        BrowserUtils.waitForVisibility(messageTabPage.pictureDisplayedOnActivityStream, 10);
+        Assert.assertTrue(messageTabPage.pictureDisplayedOnActivityStream.isDisplayed());
+        Thread.sleep(5000);
+    }
+
+    @And("user selects Allow a recipient to edit documents checkbox")
+    public void userSelectsAllowARecipientToEditDocumentsCheckbox() throws InterruptedException {
+        messageTabPage.allowEditCheckbox.click();
+        
+    }
+
+    @Then("Allow to edit checkbox is selected")
+    public void allowToEditCheckboxIsSelected() {
+        Assert.assertTrue(messageTabPage.allowEditCheckbox.isSelected());
+    }
+
+    @Then("Allow to edit checkbox is unselected")
+    public void allowToEditCheckboxIsUnselected() {
+        Assert.assertFalse(messageTabPage.allowEditCheckbox.isSelected());
+    }
+
+    @And("user clicks delete sign next to file")
+    public void userClicksDeleteSignNextToFile() {
+        messageTabPage.deleteButton.click();
+    }
+
+    @Then("file is removed from screen")
+    public void fileIsRemovedFromScreen() {
+        List<WebElement> elements = messageTabPage.findElementsInPreviewArea();
+        Assert.assertEquals(0, elements.size());
+    }
+
+    @When("user hover over file name")
+    public void user_hover_over_file_name() throws InterruptedException {
+        BrowserUtils.hoverOverFile(messageTabPage.fileNameText);
+    }
+    @When("user clicks pencil sign")
+    public void user_clicks_pencil_sign() {
+        messageTabPage.fileNameEditButton.click();
+    }
+    @When("user changes file name and clicks pencil sign")
+    public void user_changes_file_name_and_clicks_pencil_sign() throws InterruptedException {
+        messageTabPage.fileNameEditBox.clear();
+        BrowserUtils.hoverOverFile(messageTabPage.fileNameText);
+        messageTabPage.fileNameEditButton.click();
+        messageTabPage.fileNameEditBox.sendKeys("new file" + Keys.ENTER);
+
+    }
+    @Then("file name is changed")
+    public void file_name_is_changed() {
+        Assert.assertTrue(messageTabPage.fileNameText.getText().contains("new file"));
+    }
+
 }

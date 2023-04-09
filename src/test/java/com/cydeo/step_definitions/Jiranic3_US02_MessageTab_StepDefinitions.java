@@ -54,14 +54,17 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
             case "png":
                 messageTabPage.uploadFilesAndImagesButton.sendKeys(ConfigurationReader.getProperty("path1"));
                 break;
-            case "document":
+            case "pdf":
                 messageTabPage.uploadFilesAndImagesButton.sendKeys(ConfigurationReader.getProperty("path2"));
                 break;
-            case "textfile":
+            case "text":
                 messageTabPage.uploadFilesAndImagesButton.sendKeys(ConfigurationReader.getProperty("path3"));
                 break;
             case "jpeg":
                 messageTabPage.uploadFilesAndImagesButton.sendKeys(ConfigurationReader.getProperty("path4"));
+                break;
+            case "gif":
+                messageTabPage.uploadFilesAndImagesButton.sendKeys(ConfigurationReader.getProperty("path5"));
                 break;
         }
     }
@@ -72,14 +75,17 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
             case "png":
                 Assert.assertTrue(messageTabPage.uploadedFile1.isDisplayed());
                 break;
-            case "document":
+            case "pdf":
                 Assert.assertTrue(messageTabPage.uploadedFile2.isDisplayed());
                 break;
-            case "textfile":
+            case "text":
                 Assert.assertTrue(messageTabPage.uploadedFile3.isDisplayed());
                 break;
             case "jpeg":
                 Assert.assertTrue(messageTabPage.uploadedFile4.isDisplayed());
+                break;
+            case "gif":
+                Assert.assertTrue(messageTabPage.uploadedFile5.isDisplayed());
                 break;
         }
 

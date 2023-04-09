@@ -60,6 +60,9 @@ public class MessageTabPage {
     @FindBy(xpath = "//table[@class='files-list']//span[contains(text(),'flower')]")
     public WebElement uploadedFile4;
 
+    @FindBy(xpath = "//table[@class='files-list']//span[contains(text(),'welt')]")
+    public WebElement uploadedFile5;
+
     @FindBy(xpath = "//div[@id='log_internal_container']//div[@class='feed-item-wrap']//img[contains(@data-bx-title, 'picture')]")
     public WebElement pictureDisplayedOnActivityStream;
 

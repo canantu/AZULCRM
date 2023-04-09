@@ -16,18 +16,19 @@ Feature: As a user, I should be able to upload files and pictures as messages
     When user uploads a "<file>"
     Then user sees the "<file>" attached
     Examples:
-    |file|
-    |document    |
-    |datafile    |
+      | file     |
+      | pdf |
+      | text |
 
   @AZUL10-507
   Scenario Outline: Verify user can upload pictures
     When user uploads a "<file>"
     Then user sees the "<file>" attached
     Examples:
-      |file|
-      |png    |
-      |jpeg    |
+      | file |
+      | png  |
+      | jpeg |
+      | gif  |
 
   @AZUL10-508
   Scenario: Verify user can display the uploaded picture itself in Activity Stream
@@ -41,9 +42,9 @@ Feature: As a user, I should be able to upload files and pictures as messages
     And user clicks Insert in text button
     Then user sees the "<file>" on message area
     Examples:
-    |file|
-    |png|
-    |document|
+      | file     |
+      | png      |
+      | document |
 
   @AZUL10-510
   Scenario: Verify user can allow a recipient to edit documents

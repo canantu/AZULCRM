@@ -9,7 +9,7 @@ Feature: As a user, I should be able to assign tasks under Quick Navigate Menu
   Scenario: Verify hr user can assign high priority task-1
     When user enters task name
     And user clicks high priority checkbox
-    Then high priority checkbox is selected
+    Then user sees high priority checkbox is selected
 
   @AZUL10-549
   Scenario: Verify hr user can assign high priority task-2
@@ -82,7 +82,7 @@ Feature: As a user, I should be able to assign tasks under Quick Navigate Menu
       |May,2024,31,10,30,AM |
     And user enters duration
       |10 days|
-    Then finish box shows finish time correctly
+    Then user sees finish box shows finish time correctly
       |06/10/2024 10:30:00 am|
 
 

@@ -110,7 +110,7 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
     }
 
 
-    @Then("user sees the {string} on message area")
+    @Then("user sees the {string} in message area")
     public void userSeesTheFileOnMessageArea(String file) {
 
         messageTabPage.switchToMessageIframe();
@@ -126,8 +126,8 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
 
     }
 
-    @Then("picture is displayed on activity stream")
-    public void pictureIsDisplayedOnActivityStream() throws InterruptedException {
+    @Then("user sees picture is displayed in activity stream")
+    public void userSeesPictureIsDisplayedInActivityStream() throws InterruptedException {
         BrowserUtils.waitForVisibility(messageTabPage.pictureDisplayedOnActivityStream, 10);
         Assert.assertTrue(messageTabPage.pictureDisplayedOnActivityStream.isDisplayed());
         Thread.sleep(5000);
@@ -139,12 +139,12 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
         
     }
 
-    @Then("Allow to edit checkbox is selected")
+    @Then("user sees Allow to edit checkbox is selected")
     public void allowToEditCheckboxIsSelected() {
         Assert.assertTrue(messageTabPage.allowEditCheckbox.isSelected());
     }
 
-    @Then("Allow to edit checkbox is unselected")
+    @Then("user sees Allow to edit checkbox is unselected")
     public void allowToEditCheckboxIsUnselected() {
         Assert.assertFalse(messageTabPage.allowEditCheckbox.isSelected());
     }
@@ -154,7 +154,7 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
         messageTabPage.deleteButton.click();
     }
 
-    @Then("file is removed from screen")
+    @Then("user sees file is removed from screen")
     public void fileIsRemovedFromScreen() {
         List<WebElement> elements = messageTabPage.findElementsInPreviewArea();
         Assert.assertEquals(0, elements.size());
@@ -176,7 +176,7 @@ public class Jiranic3_US02_MessageTab_StepDefinitions {
         messageTabPage.fileNameEditBox.sendKeys("new file" + Keys.ENTER);
 
     }
-    @Then("file name is changed")
+    @Then("user sees file name has changed")
     public void file_name_is_changed() {
         Assert.assertTrue(messageTabPage.fileNameText.getText().contains("new file"));
     }

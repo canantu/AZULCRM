@@ -139,14 +139,14 @@ public class Jiranic3_US05_Task_StepDefinitions {
         taskPage.durationInputBox.sendKeys(durationArray[0]);
         taskPage.durationDaysOption.click();
     }
-    @Then("finish box shows finish time correctly")
+    @Then("user sees finish box shows finish time correctly")
     public void finish_box_shows_finish_time_correctly(String expectedFinishTime) {
         String actualFinishTime = taskPage.finishDateInputBox.getAttribute("value");
         Assert.assertEquals(expectedFinishTime, actualFinishTime);
     }
 
 
-    @Then("high priority checkbox is selected")
+    @Then("user sees high priority checkbox is selected")
     public void highPriorityCheckboxIsSelected() {
         Assert.assertTrue(taskPage.highPriorityCheckbox.isSelected());
     }

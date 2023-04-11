@@ -34,13 +34,13 @@ Feature: As a user, I should be able to upload files and pictures as messages
   Scenario: Verify user can display the uploaded picture itself in Activity Stream
     When user uploads a file
     And user clicks Send button
-    Then picture is displayed on activity stream
+    Then user sees picture is displayed in activity stream
 
   @AZUL10-509
   Scenario Outline: Verify user can insert the files and images into the text
     When user uploads a "<file>"
     And user clicks Insert in text button
-    Then user sees the "<file>" on message area
+    Then user sees the "<file>" in message area
     Examples:
       | file     |
       | png      |
@@ -49,15 +49,15 @@ Feature: As a user, I should be able to upload files and pictures as messages
   @AZUL10-510
   Scenario: Verify user can allow a recipient to edit documents
     When user uploads a file
-    Then Allow to edit checkbox is selected
+    Then user sees Allow to edit checkbox is selected
     And user selects Allow a recipient to edit documents checkbox
-    Then Allow to edit checkbox is unselected
+    Then user sees Allow to edit checkbox is unselected
 
   @AZUL10-511
   Scenario: Verify user can remove files and images at any time before sending
     When user uploads a file
     And user clicks delete sign next to file
-    Then file is removed from screen
+    Then user sees file is removed from screen
 
   @AZUL10-512
   Scenario: Verify user can rename the file before sending it
@@ -65,7 +65,7 @@ Feature: As a user, I should be able to upload files and pictures as messages
     And user hover over file name
     And user clicks pencil sign
     And user changes file name and clicks pencil sign
-    Then file name is changed
+    Then user sees file name has changed
 
 
 

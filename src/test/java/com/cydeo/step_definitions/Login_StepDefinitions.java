@@ -60,8 +60,8 @@ public class Login_StepDefinitions {
         BrowserUtils.waitForClickable(loginPage.forgotPasswordLink, 3);
         loginPage.forgotPasswordLink.click();
     }
-    @Then("forgot your password link is clickable")
-    public void forgot_your_password_link_is_clickable() {
+    @Then("user sees forgot your password link is displayed")
+    public void forgot_your_password_link_is_displayed() {
         Assert.assertTrue(loginPage.forgotPasswordLink.isEnabled());
     }
 
@@ -73,7 +73,7 @@ public class Login_StepDefinitions {
         Assert.assertEquals(expectedHeader, actualHeader);
     }
 
-    @Then("remember me text is displayed")
+    @Then("user is able to see remember me text")
     public void remember_me_text_is_displayed() {
         Assert.assertTrue(loginPage.rememberText.isDisplayed());
     }
@@ -82,15 +82,15 @@ public class Login_StepDefinitions {
     public void user_clicks_remember_me_checkbox() {
         loginPage.rememberCheckbox.click();
     }
-    @Then("checkbox is selected")
+    @Then("user sees checkbox is selected")
     public void checkbox_is_selected() {
         Assert.assertTrue(loginPage.rememberCheckbox.isSelected());
     }
-    @Then("checkbox is unselected")
+    @Then("user sees checkbox is unselected")
     public void checkbox_is_unselected() {
         Assert.assertFalse(loginPage.rememberCheckbox.isSelected());
     }
-    @Then("password is displayed in bullet signs")
+    @Then("user sees password is displayed in bullet signs")
     public void password_is_displayed_in_bullet_signs() {
         BrowserUtils.wait(1);
         Assert.assertEquals( "password", loginPage.isBulletSign());
@@ -100,7 +100,7 @@ public class Login_StepDefinitions {
         loginPage.passwordInputBox.sendKeys(Keys.ENTER);
     }
 
-    @Then("username is displayed on homepage")
+    @Then("user sees username is displayed on homepage")
     public void username_is_displayed_on_homepage() {
         Assert.assertTrue(homePage.usernameOnProfile.isDisplayed());
     }

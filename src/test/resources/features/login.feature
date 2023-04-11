@@ -42,25 +42,25 @@ Feature: Login functionality
 
   @AZUL10-380
   Scenario: Verify "forgot your password" link
-    Then forgot your password link is clickable
+    Then user sees forgot your password link is displayed
     When user click forgot your password link
     Then user lands on get password page
 
   @AZUL10-381
   Scenario: Verify "remember me" text
-    Then remember me text is displayed
+    Then user is able to see remember me text
 
   @AZUL10-382
   Scenario: Verify "remember me" checkbox
     When user clicks remember me checkbox
-    Then checkbox is selected
+    Then user sees checkbox is selected
     When user clicks remember me checkbox
-    Then checkbox is unselected
+    Then user sees checkbox is unselected
 
   @AZUL10-383
   Scenario: Verify password appears in bullet signs
     When user enters "UserUser" to password field
-    Then password is displayed in bullet signs
+    Then user sees password is displayed in bullet signs
 
   @AZUL10-384
   Scenario: Verify enter key for submitting login page
@@ -72,7 +72,7 @@ Feature: Login functionality
   @AZUL10-385
   Scenario Outline: Verify username appears on homepage after login
     When user logs in as "<user>"
-    Then username is displayed on homepage
+    Then user sees username is displayed on homepage
     Examples:
       | user      |
       | hr        |

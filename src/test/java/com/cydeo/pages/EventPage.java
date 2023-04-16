@@ -1,13 +1,20 @@
 package com.cydeo.pages;
 
+import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class EventPage {
@@ -16,6 +23,7 @@ public class EventPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    MessageTabPage messageTabPage = new MessageTabPage();
     @FindBy(xpath = "(//div[@id='log_internal_container']//div[@class='feed-post-item']/div)[1]")
     public WebElement eventItemCreatedOnActivityStream;
 
@@ -105,6 +113,17 @@ public class EventPage {
 
     @FindBy(id="event-locationcal_3Jcl")
     public WebElement eventLocationDropdown;
+
+    @FindBy(id = "bxecmr_0")
+    public WebElement centralMeetingRoomOption;
+
+    @FindBy(id = "bxecmr_1")
+    public WebElement eastMeetingRoomOption;
+
+    @FindBy(id = "bxecmr_2")
+    public WebElement westMeetingRoomOption;
+
+
     @FindBy(id="feed-event-dest-add-link")
     public WebElement addPersonsGroupsDepartmentsLink;
 
@@ -129,11 +148,8 @@ public class EventPage {
     @FindBy(id = "blog-submit-button-cancel")
     public WebElement cancelButton;
 
-    public void verifyEventCreated(String eventName){
-
-        WebElement eventInActivityStream = Driver.getDriver().findElement(By.xpath("//div[@id='log_internal_container']//div[@class='feed-wrap']/div[1]//a[text()='"+eventName+"']"));
-        Assert.assertTrue(eventInActivityStream.isDisplayed());
-    }
+    @FindBy(xpath = "//button[text()='Delete']")
+    public WebElement deleteEventButtonOnEventMenu;
 
     @FindBy(xpath = "//a[@title='Calendar']")
     public WebElement calendarMenu;
@@ -143,36 +159,99 @@ public class EventPage {
     @FindBy(css = "a.bx-calendar-top-year")
     public WebElement yearPicker;
 
-        // MM/DD/YYYY
-    public void selectDate(String date ) throws InterruptedException {
-        String[] dateArr = date.split("/");
 
 
-        String day=dateArr[0];
-        String month=dateArr[1];
-        String year=dateArr[2];
 
-        monthPicker.click();
-        Thread.sleep(500);
-        Driver.getDriver().findElement(By.xpath("//div[@class='bx-calendar-month-content']//span[text()='"+month+"']")).click();
+    //-------------------------METHODS--------------------------//
 
-        yearPicker.click();
-        Thread.sleep(500);
-        Driver.getDriver().findElement(By.xpath("//div[@class='bx-calendar-year-content']//span[text()='"+year+"']")).click();
+    public void verifyEventCreatedWithName(String eventName){
 
-        List<WebElement> dayElements = Driver.getDriver().findElements(By.xpath(
-                "//div[@class='bx-calendar-range']//a[text()='" + day + "']"));
+        WebElement eventInActivityStream = Driver.getDriver().findElement(By.xpath("//div[@id='log_internal_container']//div[@class='feed-wrap']/div[1]//a[text()='"+eventName+"']"));
+        Assert.assertTrue(eventInActivityStream.isDisplayed());
+    }
 
+    // DD/MMMM/YYYY format
+    public void selectDate(String date) throws InterruptedException {
 
-        if (dayElements.size()==2){
-            dayElements.get(1).click();
-            Thread.sleep(500);
+        String day;
+        String month;
+        String year;
+
+        String todayAsString;
+        String tomorrowAsString;
+        String yesterdayAsString;
+
+        if (date.equals("tomorrow")){
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            Date tomorrow = calendar.getTime();
+
+            tomorrowAsString = new SimpleDateFormat("dd/MMMM/yyyy").format(tomorrow);
+
+            String[] dateArr = tomorrowAsString.split("/");
+
+            day=dateArr[0];
+            month=dateArr[1];
+            year=dateArr[2];
+
+        } else if (date.equals("today")) {
+
+            Calendar calendar = Calendar.getInstance();
+            Date today = calendar.getTime();
+            todayAsString = new SimpleDateFormat("dd/MMMM/yyyy").format(today);
+
+            String[] dateArr = todayAsString.split("/");
+
+            day=dateArr[0];
+            month=dateArr[1];
+            year=dateArr[2];
+
+        } else if (date.equals("yesterday")) {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+            Date yesterday = calendar.getTime();
+
+            yesterdayAsString = new SimpleDateFormat("dd/MMMM/yyyy").format(yesterday);
+
+            String[] dateArr = yesterdayAsString.split("/");
+
+            day=dateArr[0];
+            month=dateArr[1];
+            year=dateArr[2];
+
         } else {
-            dayElements.get(0).click();
-            Thread.sleep(500);
+
+            String[] dateArr = date.split("/");
+
+            day=dateArr[0];
+            month=dateArr[1];
+            year=dateArr[2];
         }
 
+            monthPicker.click();
+            Thread.sleep(500);
+            Driver.getDriver().findElement(By.xpath("//div[@class='bx-calendar-month-content']//span[text()='"+month+"']")).click();
+
+            yearPicker.click();
+            Thread.sleep(500);
+            Driver.getDriver().findElement(By.xpath("//div[@class='bx-calendar-year-content']//span[text()='"+year+"']")).click();
+
+            List<WebElement> dayElements = Driver.getDriver().findElements(By.xpath(
+                    "//div[@class='bx-calendar-range']//a[text()='" + day + "']"));
+
+
+            if (dayElements.size()==2){
+                dayElements.get(1).click();
+                Thread.sleep(500);
+            } else {
+                dayElements.get(0).click();
+                Thread.sleep(500);
+            }
     }
+
+
 
     public void verifyEventOnCalendar(String eventName){
 
@@ -181,11 +260,9 @@ public class EventPage {
 
     }
 
-    @FindBy(id = "calendar_view_slider_168217_but_del")
-    public WebElement deleteEventOnCalendarButton;
-
     public void selectTime(String time, String timeType) throws InterruptedException {
         String[] startTimeArr = time.split(":");
+
 
         String hour = startTimeArr[0];
         String minute = startTimeArr[1];
@@ -259,15 +336,132 @@ public class EventPage {
     public void selectAmPm(String amPm, String timeType){
         if (timeType.equals("start")){
             String actualAmPm = startTimeAmPmPicker.getText();
-            if (!actualAmPm.equals(amPm))
+            if (!actualAmPm.equalsIgnoreCase(amPm))
                 startTimeAmPmPicker.click();
 
         } else if (timeType.equals("end")) {
             String actualAmPm = endTimeAmPmPicker.getText();
-            if (!actualAmPm.equals(amPm))
+            if (!actualAmPm.equalsIgnoreCase(amPm))
                 endTimeAmPmPicker.click();
         }
     }
+
+    public void deleteEventFromEventMenu(){
+        deleteEventButtonOnEventMenu.click();
+        Driver.getDriver().switchTo().alert().accept();
+
+    }
+
+    public void deleteEventFromActivityStream(){
+
+        try{
+            moreButton.click();
+            deleteOptionInMorePopupMenu.click();
+            Alert alert = Driver.getDriver().switchTo().alert();
+            alert.accept();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public String getTodaysDate(){
+
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        String todayAsString = new SimpleDateFormat("MM/dd/yyyy").format(today);
+        return todayAsString;
+    }
+
+    public void selectReminderTimeUnit(String timeUnit){
+
+        Select select = new Select(setReminderTimeTypeDropdown);
+        switch (timeUnit){
+            case "minutes":
+                BrowserUtils.waitForElementPresent("//option[@value='min']", 2);
+                select.selectByValue("min");
+                break;
+            case "hours":
+                BrowserUtils.waitForElementPresent("//option[@value='hour']", 2);
+                select.selectByValue("hour");
+                break;
+            case "days":
+                BrowserUtils.waitForElementPresent("//option[@value='day']", 2);
+                select.selectByValue("day");
+                break;
+        }
+    }
+
+
+    @FindBy(xpath = "(//div[contains(@id, 'log_entry_inform')])[1]//span[text()='More']")
+    public WebElement moreButton;
+    @FindBy(xpath = "//div[@class='menu-popup-items']//span[text()='Delete']")
+    public WebElement deleteOptionInMorePopupMenu;
+
+    @FindBy(xpath = "//div[@class='feed-add-error']//span[@class='feed-add-info-text']")
+    public WebElement errorMessage;
+    @FindBy(xpath = "//span[@data-bx-calendar-view='month']")
+    public WebElement monthlyViewOptionForCalender;
+
+
+    @FindBy(xpath = "//span[text()='new event']")
+    public WebElement eventElementOnCalender;
+
+    @FindBy(xpath = "//span[text()='Open']")
+    public WebElement openEventButtonInCalenderPage;
+    @FindBy(xpath = "//span[@class='calendar-slider-sidebar-remind-warning-name']")
+    public WebElement reminderTextInEventPage;
+    @FindBy(xpath = "//span[text()='Delete']")
+    public WebElement deleteEventButtonOnPopUpMenuOnCalendar;
+
+    @FindBy(xpath = "(//div[@class='feed-post-title-block'])[1]/div")
+    public List<WebElement> listOfContainersOfFirstElementInActivityStream;
+
+    public void verifyReminderIsNotPresentOnEventMenu(){
+        List<WebElement> webElementList = Driver.getDriver().findElements(By.xpath("//div[@class='calendar-slider-sidebar-inner']/div"));
+        Assert.assertEquals(1, webElementList.size());
+    }
+
+    public void selectMeetingLocation(String location){
+
+        eventLocationDropdown.click();
+        switch (location){
+            case "Central Meeting Room":
+                centralMeetingRoomOption.click();
+                break;
+            case "East Meeting Room":
+                eastMeetingRoomOption.click();
+                break;
+            case "West Meeting Room":
+                westMeetingRoomOption.click();
+                break;
+
+        }
+    }
+
+    public void createNewEvent(String startTime, String endTime, String location) throws InterruptedException {
+
+        eventName.sendKeys("new event");
+
+        eventStartTimeBox.click();
+        selectTime(startTime, "start");
+
+        eventEndTimeBox.click();
+        selectTime(endTime, "end");
+
+        selectMeetingLocation(location);
+
+        messageTabPage.sendButton.click();
+    }
+
+
+
+
+
+
+
 
 
 

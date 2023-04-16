@@ -1,5 +1,6 @@
 package com.cydeo.utilities;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -26,6 +27,15 @@ public class BrowserUtils {
         try{
             WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
             wait.until(ExpectedConditions.visibilityOf(element));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void waitForElementPresent(String locator, int timeout){
+        try{
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
         } catch (Exception e) {
             e.printStackTrace();
         }

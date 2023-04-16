@@ -142,7 +142,7 @@ public class EventPage {
     @FindBy(xpath = "//div[@class='bx-finder-company-department-employee-info']//div[text()='helpdesk22@cybertekschool.com']")
     public WebElement helpdesk22User;
 
-    @FindBy(css = "span.popup-window-close-icon")
+    @FindBy(xpath = "//span[@class='popup-window-close-icon']")
     public WebElement closeEmployeeSelectMenu;
 
     @FindBy(id = "blog-submit-button-cancel")
@@ -347,6 +347,8 @@ public class EventPage {
     }
 
     public void deleteEventFromEventMenu(){
+
+        BrowserUtils.waitForVisibility(deleteEventButtonOnEventMenu,2);
         deleteEventButtonOnEventMenu.click();
         Driver.getDriver().switchTo().alert().accept();
 
@@ -354,17 +356,10 @@ public class EventPage {
 
     public void deleteEventFromActivityStream(){
 
-        try{
             moreButton.click();
             deleteOptionInMorePopupMenu.click();
             Alert alert = Driver.getDriver().switchTo().alert();
             alert.accept();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
     }
 
     public String getTodaysDate(){
@@ -418,6 +413,9 @@ public class EventPage {
 
     @FindBy(xpath = "(//div[@class='feed-post-title-block'])[1]/div")
     public List<WebElement> listOfContainersOfFirstElementInActivityStream;
+
+    @FindBy(xpath = "//div[@id='log_internal_container']//div[@class='feed-wrap']/div[1]//table//span")
+    public WebElement eventTimeInActivityStream;
 
     public void verifyReminderIsNotPresentOnEventMenu(){
         List<WebElement> webElementList = Driver.getDriver().findElements(By.xpath("//div[@class='calendar-slider-sidebar-inner']/div"));

@@ -93,16 +93,9 @@ public class Jiranic3_US04_EventTab_StepDefinitions {
     @Then("user sees event start time {string} was displayed correctly in Activity Stream")
     public void user_sees_event_start_time_was_displayed_correctly_in_activity_stream(String time) {
 
-        try {
-            WebElement timeToVerify = Driver.getDriver().findElement(By.xpath("//div[@id='log_internal_container']//div[@class='feed-wrap']/div[1]//table//span"));
-            BrowserUtils.waitForVisibility(timeToVerify, 5);
-            Assert.assertTrue(timeToVerify.getText().contains(time));
-        }catch (Exception e){
-            WebElement timeToVerify = Driver.getDriver().findElement(By.xpath("//div[@id='log_internal_container']//div[@class='feed-wrap']/div[1]//table//span"));
-            BrowserUtils.waitForVisibility(timeToVerify, 5);
-            Assert.assertTrue(timeToVerify.getText().contains(time));
-        }
-
+            BrowserUtils.waitForVisibility(eventPage.eventTimeInActivityStream, 5);
+            Assert.assertTrue(eventPage.eventTimeInActivityStream.getText().contains(time));
+            eventPage.deleteEventFromActivityStream();
     }
 
     @Then("user gets {string} error message")
@@ -136,6 +129,7 @@ public class Jiranic3_US04_EventTab_StepDefinitions {
     }
     @When("user enters reminder time as {string}")
     public void user_enters_reminder_time_as(String reminderTime) {
+        BrowserUtils.waitForVisibility(eventPage.setReminderCount, 2);
         eventPage.setReminderCount.clear();
         eventPage.setReminderCount.sendKeys(reminderTime);
     }
@@ -155,13 +149,14 @@ public class Jiranic3_US04_EventTab_StepDefinitions {
     public void user_sees_selected_is_displayed_on_screen(String reminder) {
         String actualReminderText = eventPage.reminderTextInEventPage.getText();
         Assert.assertEquals(reminder, actualReminderText);
-
+        BrowserUtils.wait(1);
         eventPage.deleteEventFromEventMenu();
 
     }
 
     @When("user clicks set reminder checkbox")
     public void user_clicks_set_reminder_checkbox() {
+        BrowserUtils.waitForClickable(eventPage.setReminderCheckbox,2);
         eventPage.setReminderCheckbox.click();
     }
     @Then("user sees reminder checkbox is unselected")
@@ -194,7 +189,29 @@ public class Jiranic3_US04_EventTab_StepDefinitions {
         int size = eventPage.listOfContainersOfFirstElementInActivityStream.size();
         Assert.assertEquals(1, size);
     }
+    @When("user clicks Add employee link")
+    public void user_clicks_add_employee_link() {
+       eventPage.addPersonsGroupsDepartmentsLink.click();
+    }
+    @When("user selects Employees and departments link")
+    public void user_selects_employees_and_departments_link() {
+        eventPage.employeesAndDepartmentsLink.click();
+    }
+    @When("user selects a {string} and closes the menu")
+    public void user_selects_a_and_closes_the_menu(String member) {
+        switch (member){
+            case "helpdesk22@cybertekschool.com":
+                eventPage.helpdesk22User.click();
+                break;
+            case "QA Department":
+                eventPage.qaDepartmentLink.click();
+                eventPage.allDepartmentEmployeesCheckbox.click();
+                break;
 
+        }
+
+        eventPage.closeEmployeeSelectMenu.click();
+    }
 
 
 

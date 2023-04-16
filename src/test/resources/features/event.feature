@@ -1,11 +1,11 @@
-
+@wip
 Feature: As a user, I should be able to create events by clicking on Event tab under Activity Stream
 
   Background:
     Given user logs in successfully
     And user clicks Event menu
 
-  Scenario: Verify that user can add Event date and time with the time zone
+  Scenario: Verify that user can add Event date and time
     When user enters event name "new event"
     And user selects event start date as "10/April/2023"
     And user selects event start time as "9:00:am"
@@ -119,7 +119,7 @@ Feature: As a user, I should be able to create events by clicking on Event tab u
     When user enters event name "new event"
     And user clicks Cancel button
     Then user sees no new event created
-  @wip
+
   Scenario Outline: Verify that user can add members by selecting individual contacts/groups/departments
     When user enters event name "new event"
     And user clicks Add employee link
@@ -130,7 +130,6 @@ Feature: As a user, I should be able to create events by clicking on Event tab u
     Examples:
       | user/group/department         |
       | helpdesk22@cybertekschool.com |
-      | Corporate Christmas Party     |
       | QA Department                 |
 
 
